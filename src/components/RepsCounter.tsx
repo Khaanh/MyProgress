@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 // import styles from "./RepsCounter.module.css";
 
 export default function RepsCounter() {
 	const [reps, setReps] = useState<number>(0);
+	const inputEl = useRef<HTMLInputElement>(null);
 	const onRepsCounter = (val: number) => {
 		setReps(val);
 	};
@@ -15,6 +16,12 @@ export default function RepsCounter() {
 		setReps((curVal) => curVal - 1);
 	};
 
+	useEffect(() => {
+		if (inputEl.current) {
+			inputEl.current.focus();
+		}
+	}, []);
+
 	return (
 		<div>
 			<form onSubmit={(e) => e.preventDefault()}>
@@ -26,6 +33,7 @@ export default function RepsCounter() {
 				<button onClick={handlePlusRep}>+ 1</button>
 				<label>
 					<input
+						ref={inputEl}
 						value={reps}
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
 					/>
