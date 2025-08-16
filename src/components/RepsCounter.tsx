@@ -47,6 +47,8 @@ export default function RepsCounter() {
 						ref={inputEl}
 						placeholder="0"
 						// value={reps}
+						inputMode="numeric"
+						pattern="\d*"
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
 						min={0}
 					/>
