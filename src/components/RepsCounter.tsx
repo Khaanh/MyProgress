@@ -4,9 +4,13 @@ import { useEffect, useRef, useState } from "react";
 export default function RepsCounter() {
 	const [reps, setReps] = useState<number>(0);
 	const inputEl = useRef<HTMLInputElement>(null);
+
 	const onRepsCounter = (val: number) => {
+		// setReps(val ? (curVal) => curVal + val : val);
 		setReps(val);
 	};
+
+	const handleSave = () => {};
 
 	const handlePlusRep = () => {
 		setReps((curVal) => curVal + 1);
@@ -17,10 +21,14 @@ export default function RepsCounter() {
 		setReps((curVal) => curVal - 1);
 	};
 
-	useEffect(() => {
+	const inputFocus = () => {
 		if (inputEl.current) {
 			inputEl.current.focus();
 		}
+	};
+
+	useEffect(() => {
+		inputFocus();
 	}, []);
 
 	return (
@@ -38,12 +46,17 @@ export default function RepsCounter() {
 						type="number"
 						ref={inputEl}
 						placeholder="0"
+						// value={reps}
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
-						step="any"
+						min={0}
 					/>
 				</label>
 				<button disabled={reps ? false : true} onClick={handleMinusRep}>
 					- 1
+				</button>
+
+				<button onClick={handleSave} type="submit">
+					Save
 				</button>
 			</form>
 		</div>
