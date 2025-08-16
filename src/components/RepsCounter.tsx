@@ -13,6 +13,7 @@ export default function RepsCounter() {
 	};
 
 	const handleMinusRep = () => {
+		if (!reps) return;
 		setReps((curVal) => curVal - 1);
 	};
 
@@ -33,12 +34,17 @@ export default function RepsCounter() {
 				<button onClick={handlePlusRep}>+ 1</button>
 				<label>
 					<input
+						name="repsCounter"
+						type="number"
 						ref={inputEl}
-						value={reps}
+						placeholder="0"
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
+						step="any"
 					/>
 				</label>
-				<button onClick={handleMinusRep}>- 1</button>
+				<button disabled={reps ? false : true} onClick={handleMinusRep}>
+					- 1
+				</button>
 			</form>
 		</div>
 	);
