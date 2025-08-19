@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 
 export default function RepsCounter() {
 	const [reps, setReps] = useState<number>(0);
+	const [inputVal, setInputVal] = useState<number | string>(0);
 	const inputEl = useRef<HTMLInputElement>(null);
 
 	const onRepsCounter = (val: number) => {
@@ -22,9 +23,11 @@ export default function RepsCounter() {
 	};
 
 	const inputFocus = () => {
-		if (inputEl.current) {
-			inputEl.current.focus();
-		}
+		inputEl.current?.focus();
+	};
+	const inputBlur = (el) => {
+		inputEl.current?.blur();
+		console.log(el);
 	};
 
 	useEffect(() => {
@@ -46,10 +49,11 @@ export default function RepsCounter() {
 						type="number"
 						ref={inputEl}
 						placeholder="0"
-						// value={reps}
+						value={""}
 						inputMode="numeric"
 						pattern="\d*"
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
+						onBlur={(e) => inputBlur(Number(e.target.value))}
 						min={0}
 					/>
 				</label>
