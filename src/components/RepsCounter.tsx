@@ -2,16 +2,23 @@ import { useEffect, useRef, useState } from "react";
 // import styles from "./RepsCounter.module.css";
 
 export default function RepsCounter() {
-	const [reps, setReps] = useState<number>(0);
+	const [reps, setReps] = useState<number | string>("");
 	const [inputVal, setInputVal] = useState<number | string>(0);
+	let totalReps: number = 0;
 	const inputEl = useRef<HTMLInputElement>(null);
 
 	const onRepsCounter = (val: number) => {
-		// setReps(val ? (curVal) => curVal + val : val);
 		setReps(val);
 	};
 
-	const handleSave = () => {};
+	const handleSave = () => {
+		console.log(inputEl.current?.value);
+		totalReps = Number(inputEl.current?.value);
+		setReps(totalReps);
+		console.log("totalReps:", totalReps);
+		// setReps(" ");
+		// inputEl.current?.value = "";
+	};
 
 	const handlePlusRep = () => {
 		setReps((curVal) => curVal + 1);
@@ -25,6 +32,7 @@ export default function RepsCounter() {
 	const inputFocus = () => {
 		inputEl.current?.focus();
 	};
+
 	const inputBlur = (el) => {
 		inputEl.current?.blur();
 		console.log(el);
@@ -49,11 +57,11 @@ export default function RepsCounter() {
 						type="number"
 						ref={inputEl}
 						placeholder="0"
-						value={""}
+						value={reps}
 						inputMode="numeric"
 						pattern="\d*"
 						onChange={(e) => onRepsCounter(Number(e.target.value))}
-						onBlur={(e) => inputBlur(Number(e.target.value))}
+						// onBlur={(e) => inputBlur(Number(e.target.value))}
 						min={0}
 					/>
 				</label>
